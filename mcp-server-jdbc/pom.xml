@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>io.github.thought2code</groupId>
+        <artifactId>mcp-java-sdk-examples</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>mcp-server-jdbc</artifactId>
+    <packaging>pom</packaging>
+
+    <name>MCP Server JDBC</name>
+    <description>MCP server modules for exposing JDBC database operations</description>
+
+    <modules>
+        <module>mcp-server-jdbc-annotated-sdk</module>
+        <module>mcp-server-jdbc-common</module>
+    </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.github.thought2code</groupId>
+                <artifactId>mcp-server-jdbc-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

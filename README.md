@@ -1,30 +1,43 @@
-# MCP Server Examples
+# MCP Java SDK Examples
 
-A collection of MCP examples developed by various SDKs. As of now, the following SDKs are supported.
-
-- [Declarative MCP Java SDK](https://github.com/codeboyzhou/mcp-declarative-java-sdk) (lightweight and easier to use)
-- [Official MCP Java SDK](https://github.com/modelcontextprotocol/java-sdk)
-- [Spring AI MCP SDK](https://docs.spring.io/spring-ai/reference/api/mcp/mcp-server-boot-starter-docs.html)
+A collection of MCP examples developed with Java SDKs.
 
 ## Requirements
 
-- Java 17 or later (Restricted by MCP Java SDK)
+- Java 17 or later
+- Maven 3.9.16 or the included Maven Wrapper
 
 ## What is MCP?
 
-The [Model Context Protocol (MCP)](https://modelcontextprotocol.io) lets you build servers that expose data and functionality to LLM applications in a secure, standardized way. Think of it like a web API, but specifically designed for LLM interactions. MCP servers can:
-
-- Expose data through **Resources** (think of these sort of like GET endpoints; they are used to load information into the LLM's context)
-- Provide functionality through **Tools** (sort of like POST endpoints; they are used to execute code or otherwise produce a side effect)
-- Define interaction patterns through **Prompts** (reusable templates for LLM interactions)
-- And more!
-
-You can start exploring everything about **MCP** from [here](https://modelcontextprotocol.io).
+The [Model Context Protocol (MCP)](https://modelcontextprotocol.io) lets servers expose data and functionality to LLM applications in a standardized way. MCP servers can expose resources, tools, prompts, and more.
 
 ## Examples
 
-If you are looking for servers implemented with Typescript MCP SDK or Python MCP SDK, see [here](https://github.com/modelcontextprotocol/servers).
+- [JDBC Server](mcp-server-jdbc) - Exposes JDBC database metadata through an MCP resource
 
-These servers aim to demonstrate MCP features and the MCP Java SDK.
+## JDBC Server
 
-- [Filesystem](https://github.com/codeboyzhou/mcp-java-sdk-examples/blob/main/mcp-server-filesystem/README.md) - Secure file operations with configurable access controls
+The JDBC example currently includes an annotated-sdk implementation backed by SQLite.
+
+Implemented resource:
+
+- `db://schema` - Returns database product name and version as JSON
+
+Default database configuration:
+
+- `JDBC_URL` defaults to `jdbc:sqlite:./test.db`
+- `JDBC_USERNAME` is optional
+- `JDBC_PASSWORD` is optional
+
+Run the server:
+
+```powershell
+.\mvnw.cmd -pl mcp-server-jdbc/mcp-server-jdbc-annotated-sdk -am compile exec:java -Dexec.mainClass=com.github.thought2code.mcp.server.jdbc.annotated.JdbcMcpServer
+```
+
+Run with a custom SQLite database:
+
+```powershell
+$env:JDBC_URL = "jdbc:sqlite:C:\path\to\database.db"
+.\mvnw.cmd -pl mcp-server-jdbc/mcp-server-jdbc-annotated-sdk -am compile exec:java -Dexec.mainClass=com.github.thought2code.mcp.server.jdbc.annotated.JdbcMcpServer
+```

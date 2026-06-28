@@ -4,13 +4,17 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.codeboyzhou</groupId>
+    <groupId>io.github.thought2code</groupId>
     <artifactId>mcp-java-sdk-examples</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
     <packaging>pom</packaging>
 
+    <name>MCP Java SDK Examples</name>
+    <description>A collection of MCP examples developed with various Java SDKs</description>
+    <url>https://github.com/thought2code/mcp-java-sdk-examples</url>
+
     <modules>
-        <module>mcp-server-filesystem</module>
+        <module>mcp-server-jdbc</module>
     </modules>
 
     <properties>
@@ -20,42 +24,42 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!--==================== maven plugin versions ====================-->
-        <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
-        <maven-shade-plugin.version>3.6.0</maven-shade-plugin.version>
+        <maven-enforcer-plugin.version>3.6.3</maven-enforcer-plugin.version>
         <sortpom-maven-plugin.version>4.0.0</sortpom-maven-plugin.version>
-        <spotbugs-maven-plugin.version>4.9.3.2</spotbugs-maven-plugin.version>
-        <spotless-maven-plugin.version>2.46.1</spotless-maven-plugin.version>
-        <spring-boot-maven-plugin.version>3.5.3</spring-boot-maven-plugin.version>
+        <spotbugs-maven-plugin.version>4.10.2.0</spotbugs-maven-plugin.version>
+        <spotless-maven-plugin.version>3.6.0</spotless-maven-plugin.version>
+        <versions-maven-plugin.version>2.21.0</versions-maven-plugin.version>
         <!--==================== dependency versions ======================-->
-        <junit5.version>5.10.2</junit5.version>
-        <logback.version>1.5.18</logback.version>
-        <mcp-declarative-java-sdk.version>0.8.6</mcp-declarative-java-sdk.version>
-        <spring-ai-starter-mcp-server.version>1.0.3</spring-ai-starter-mcp-server.version>
+        <logback.version>1.5.37</logback.version>
+        <lombok.version>1.18.46</lombok.version>
+        <mcp-annotated-java-sdk.version>0.20.0-SNAPSHOT</mcp-annotated-java-sdk.version>
+        <sqlite-jdbc.version>3.53.2.0</sqlite-jdbc.version>
     </properties>
 
-    <dependencies>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>${logback.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>io.github.codeboyzhou</groupId>
-            <artifactId>mcp-declarative-java-sdk</artifactId>
-            <version>${mcp-declarative-java-sdk.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>${junit5.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.ai</groupId>
-            <artifactId>spring-ai-starter-mcp-server</artifactId>
-            <version>${spring-ai-starter-mcp-server.version}</version>
-        </dependency>
-    </dependencies>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.github.thought2code</groupId>
+                <artifactId>mcp-annotated-java-sdk</artifactId>
+                <version>${mcp-annotated-java-sdk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.xerial</groupId>
+                <artifactId>sqlite-jdbc</artifactId>
+                <version>${sqlite-jdbc.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>
@@ -64,6 +68,7 @@
                 <artifactId>spotless-maven-plugin</artifactId>
                 <version>${spotless-maven-plugin.version}</version>
                 <configuration>
+                    <lineEndings>UNIX</lineEndings>
                     <java>
                         <googleJavaFormat>
                             <style>GOOGLE</style>
@@ -73,10 +78,11 @@
                 </configuration>
                 <executions>
                     <execution>
+                        <id>spotless-check</id>
                         <goals>
-                            <goal>apply</goal>
+                            <goal>check</goal>
                         </goals>
-                        <phase>compile</phase>
+                        <phase>validate</phase>
                     </execution>
                 </executions>
             </plugin>
@@ -116,15 +122,56 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>${maven-compiler-plugin.version}</version>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>${maven-enforcer-plugin.version}</version>
                 <configuration>
-                    <compilerArgs>
-                        <arg>-Xlint:deprecation</arg>
-                    </compilerArgs>
+                    <rules>
+                        <requireJavaVersion>
+                            <version>17</version>
+                            <message>Java 17 or higher is required to build this project</message>
+                        </requireJavaVersion>
+                        <requireMavenVersion>
+                            <version>3.9.16</version>
+                            <message>Please use ./mvnw (Maven Wrapper) to build this project</message>
+                        </requireMavenVersion>
+                    </rules>
+                    <fail>true</fail>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>enforce-versions</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <phase>validate</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>versions-maven-plugin</artifactId>
+                <version>${versions-maven-plugin.version}</version>
+                <configuration>
+                    <allowSnapshots>false</allowSnapshots>
+                    <allowMinorUpdates>true</allowMinorUpdates>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>display-dependency-updates</id>
+                        <goals>
+                            <goal>display-dependency-updates</goal>
+                        </goals>
+                        <phase>validate</phase>
+                    </execution>
+                    <execution>
+                        <id>display-plugin-updates</id>
+                        <goals>
+                            <goal>display-plugin-updates</goal>
+                        </goals>
+                        <phase>validate</phase>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
-
 </project>
