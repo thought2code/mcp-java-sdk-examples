@@ -32,12 +32,13 @@ Default database configuration:
 Run the server:
 
 ```powershell
-.\mvnw.cmd -pl mcp-server-jdbc/mcp-server-jdbc-annotated-sdk -am compile exec:java -Dexec.mainClass=com.github.thought2code.mcp.server.jdbc.annotated.JdbcMcpServer
+.\mvnw.cmd -pl mcp-server-jdbc/mcp-server-jdbc-annotated-sdk -am package
+java -jar mcp-server-jdbc\mcp-server-jdbc-annotated-sdk\target\mcp-server-jdbc-annotated-sdk-1.0.0.jar
 ```
 
 Run with a custom SQLite database:
 
 ```powershell
 $env:JDBC_URL = "jdbc:sqlite:C:\path\to\database.db"
-.\mvnw.cmd -pl mcp-server-jdbc/mcp-server-jdbc-annotated-sdk -am compile exec:java -Dexec.mainClass=com.github.thought2code.mcp.server.jdbc.annotated.JdbcMcpServer
+java -jar mcp-server-jdbc\mcp-server-jdbc-annotated-sdk\target\mcp-server-jdbc-annotated-sdk-1.0.0.jar
 ```
