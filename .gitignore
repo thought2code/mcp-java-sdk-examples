@@ -7,6 +7,3 @@
 
 # Maven build files
 target/
-
-# Test files
-*.db

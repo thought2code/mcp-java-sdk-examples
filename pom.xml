@@ -33,7 +33,7 @@
         <!--==================== dependency versions ======================-->
         <logback.version>1.5.37</logback.version>
         <lombok.version>1.18.46</lombok.version>
-        <mcp-annotated-java-sdk.version>0.20.0-SNAPSHOT</mcp-annotated-java-sdk.version>
+        <mcp-annotated-java-sdk.version>0.20.0</mcp-annotated-java-sdk.version>
         <sqlite-jdbc.version>3.53.2.0</sqlite-jdbc.version>
     </properties>
 

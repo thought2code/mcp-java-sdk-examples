@@ -4,8 +4,9 @@ import com.github.thought2code.mcp.annotated.McpApplication;
 import com.github.thought2code.mcp.annotated.annotation.McpServerApplication;
 
 @McpServerApplication
-public class JdbcMcpServer {
+public class JdbcMcpStreamableHttpServer {
   public static void main(String[] args) {
-    McpApplication.run(JdbcMcpServer.class, args);
+    McpApplication.run(
+        JdbcMcpStreamableHttpServer.class, args, "mcp-server-streamable-http-mode.yml");
   }
 }
