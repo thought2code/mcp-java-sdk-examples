@@ -16,7 +16,6 @@ public class JdbcSchemaReader {
   private static final String COLUMN_TABLE_CATALOG = "TABLE_CAT";
   private static final String COLUMN_TABLE_SCHEMA = "TABLE_SCHEM";
   private static final String COLUMN_TABLE_NAME = "TABLE_NAME";
-  private static final String COLUMN_TABLE_TYPE = "TABLE_TYPE";
   private static final String COLUMN_TABLE_REMARKS = "REMARKS";
   private static final String COLUMN_COLUMN_NAME = "COLUMN_NAME";
 
@@ -45,10 +44,7 @@ public class JdbcSchemaReader {
         List<String> columns = getColumns(meta, catalog, schema, name);
         Table table =
             Table.builder()
-                .catalog(catalog)
-                .schema(schema)
                 .name(name)
-                .type(resultSet.getString(COLUMN_TABLE_TYPE))
                 .description(resultSet.getString(COLUMN_TABLE_REMARKS))
                 .columns(columns)
                 .build();
