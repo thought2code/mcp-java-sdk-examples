@@ -2,7 +2,7 @@ package com.github.thought2code.mcp.server.jdbc.annotated;
 
 import com.github.thought2code.mcp.annotated.annotation.McpResource;
 import com.github.thought2code.mcp.annotated.enums.MimeType;
-import com.github.thought2code.mcp.server.jdbc.common.datasource.DriverManagerDataSource;
+import com.github.thought2code.mcp.server.jdbc.common.datasource.MysqlDataSource;
 import com.github.thought2code.mcp.server.jdbc.common.exception.DatabaseSchemaResourceException;
 import com.github.thought2code.mcp.server.jdbc.common.exception.JdbcConfigurationException;
 import com.github.thought2code.mcp.server.jdbc.common.schema.DatabaseSchema;
@@ -19,8 +19,9 @@ public class McpServerResources {
       mimeType = MimeType.APPLICATION_JSON)
   public DatabaseSchema getDatabaseSchema() {
     try {
-      return new JdbcSchemaReader().read(DriverManagerDataSource.fromEnv());
+      return new JdbcSchemaReader().read(new MysqlDataSource());
     } catch (JdbcConfigurationException e) {
+      log.error("Invalid JDBC configuration", e);
       throw e;
     } catch (SQLException e) {
       log.error("Failed to get database schema", e);

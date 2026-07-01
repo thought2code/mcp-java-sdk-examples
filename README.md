@@ -6,6 +6,7 @@ A collection of MCP examples developed with Java SDKs.
 
 - Java 17 or later
 - Maven 3.9.16 or the included Maven Wrapper
+- Docker with Docker Compose
 
 ## What is MCP?
 
@@ -30,9 +31,22 @@ JDBC configuration for the MCP server process:
 - `JDBC_USERNAME` is optional
 - `JDBC_PASSWORD` is optional
 
-Bundled sample database:
+Sample database:
 
-- `mcp-server-jdbc/mcp-server-jdbc-common/src/test/resources/sqlite3.db`
+- MySQL runs in Docker with initialization data from `mcp-server-jdbc/mcp-server-jdbc-common/src/test/resources/init.sql`
+
+Start the sample MySQL database:
+
+```bash
+docker compose -f mcp-server-jdbc/docker-compose.yml up -d
+```
+
+The container initializes the `mcp_examples` database on first startup. To recreate the database from `init.sql`, remove the container and start it again:
+
+```bash
+docker compose -f mcp-server-jdbc/docker-compose.yml down -v
+docker compose -f mcp-server-jdbc/docker-compose.yml up -d
+```
 
 Build the MCP server jar first:
 
@@ -50,7 +64,7 @@ Use these paths in the examples below:
 
 - `<repo>` - absolute path to this repository
 - `<jar>` - `<repo>/mcp-server-jdbc/mcp-server-jdbc-annotated-sdk/target/mcp-server-jdbc-annotated-sdk.jar`
-- `<sqlite3.db>` - `<repo>/mcp-server-jdbc/mcp-server-jdbc-common/src/test/resources/sqlite3.db`
+- `<mysql-url>` - `jdbc:mysql://127.0.0.1:3306/mcp_examples?allowPublicKeyRetrieval=true&useSSL=false&nullCatalogMeansCurrent=true`
 
 For Windows paths in JSON/TOML, prefer forward slashes, for example `C:/Users/me/code/mcp-java-sdk-examples/...`.
 
@@ -59,7 +73,11 @@ For Windows paths in JSON/TOML, prefer forward slashes, for example `C:/Users/me
 Start Inspector with the JDBC server as a STDIO server:
 
 ```bash
-npx @modelcontextprotocol/inspector -e JDBC_URL=jdbc:sqlite:<sqlite3.db> -- java -jar <jar>
+npx @modelcontextprotocol/inspector \
+  -e JDBC_URL="<mysql-url>" \
+  -e JDBC_USERNAME=mcp \
+  -e JDBC_PASSWORD=mcp \
+  -- java -jar <jar>
 ```
 
 Open the Inspector URL printed in the terminal, then browse the `db://schema` resource.
@@ -75,7 +93,9 @@ Add the server to Claude Desktop MCP settings:
       "command": "java",
       "args": ["-jar", "<jar>"],
       "env": {
-        "JDBC_URL": "jdbc:sqlite:<sqlite3.db>"
+        "JDBC_URL": "<mysql-url>",
+        "JDBC_USERNAME": "mcp",
+        "JDBC_PASSWORD": "mcp"
       }
     }
   }
@@ -89,7 +109,11 @@ Restart Claude Desktop, then browse the `db://schema` resource from the MCP tool
 Add the server with the Codex CLI:
 
 ```bash
-codex mcp add jdbc-mcp-server --env JDBC_URL=jdbc:sqlite:<sqlite3.db> -- java -jar <jar>
+codex mcp add jdbc-mcp-server \
+  --env JDBC_URL="<mysql-url>" \
+  --env JDBC_USERNAME=mcp \
+  --env JDBC_PASSWORD=mcp \
+  -- java -jar <jar>
 ```
 
 Or add it to `~/.codex/config.toml` or a trusted project `.codex/config.toml`:
@@ -100,7 +124,9 @@ command = "java"
 args = ["-jar", "<jar>"]
 
 [mcp_servers.jdbc-mcp-server.env]
-JDBC_URL = "jdbc:sqlite:<sqlite3.db>"
+JDBC_URL = "<mysql-url>"
+JDBC_USERNAME = "mcp"
+JDBC_PASSWORD = "mcp"
 ```
 
 ### Cursor
@@ -114,7 +140,9 @@ Add this server in Cursor MCP settings:
       "command": "java",
       "args": ["-jar", "<jar>"],
       "env": {
-        "JDBC_URL": "jdbc:sqlite:<sqlite3.db>"
+        "JDBC_URL": "<mysql-url>",
+        "JDBC_USERNAME": "mcp",
+        "JDBC_PASSWORD": "mcp"
       }
     }
   }
@@ -132,7 +160,9 @@ Open Cline MCP settings and add:
       "command": "java",
       "args": ["-jar", "<jar>"],
       "env": {
-        "JDBC_URL": "jdbc:sqlite:<sqlite3.db>"
+        "JDBC_URL": "<mysql-url>",
+        "JDBC_USERNAME": "mcp",
+        "JDBC_PASSWORD": "mcp"
       }
     }
   }
@@ -151,7 +181,9 @@ Create or update `.vscode/mcp.json`:
       "command": "java",
       "args": ["-jar", "<jar>"],
       "env": {
-        "JDBC_URL": "jdbc:sqlite:<sqlite3.db>"
+        "JDBC_URL": "<mysql-url>",
+        "JDBC_USERNAME": "mcp",
+        "JDBC_PASSWORD": "mcp"
       }
     }
   }
@@ -162,8 +194,8 @@ For databases that require credentials, add them to the MCP server environment:
 
 ```json
 "env": {
-  "JDBC_URL": "jdbc:postgresql://localhost:5432/example",
-  "JDBC_USERNAME": "user",
-  "JDBC_PASSWORD": "password"
+  "JDBC_URL": "<mysql-url>",
+  "JDBC_USERNAME": "mcp",
+  "JDBC_PASSWORD": "mcp"
 }
 ```
