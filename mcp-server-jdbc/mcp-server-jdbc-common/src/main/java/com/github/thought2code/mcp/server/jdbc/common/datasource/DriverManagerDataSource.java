@@ -1,5 +1,6 @@
 package com.github.thought2code.mcp.server.jdbc.common.datasource;
 
+import com.github.thought2code.mcp.server.jdbc.common.exception.JdbcConfigurationException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -8,6 +9,7 @@ public class DriverManagerDataSource implements DataSource {
   private static final String ENV_JDBC_URL = "JDBC_URL";
   private static final String ENV_JDBC_USERNAME = "JDBC_USERNAME";
   private static final String ENV_JDBC_PASSWORD = "JDBC_PASSWORD";
+  private static final String JDBC_URL_PREFIX = "jdbc:";
 
   private final DataSourceConfig config;
 
@@ -18,7 +20,7 @@ public class DriverManagerDataSource implements DataSource {
   public static DriverManagerDataSource fromEnv() {
     DataSourceConfig config =
         DataSourceConfig.builder()
-            .jdbcUrl(getRequiredEnv(ENV_JDBC_URL))
+            .jdbcUrl(getRequiredJdbcUrl())
             .username(System.getenv(ENV_JDBC_USERNAME))
             .password(System.getenv(ENV_JDBC_PASSWORD))
             .build();
@@ -39,8 +41,17 @@ public class DriverManagerDataSource implements DataSource {
   private static String getRequiredEnv(String name) {
     final String value = System.getenv(name);
     if (value == null || value.trim().isBlank()) {
-      throw new IllegalStateException(name + " environment variable is required");
+      throw new JdbcConfigurationException(name + " environment variable is required");
     }
-    return value;
+    return value.trim();
+  }
+
+  private static String getRequiredJdbcUrl() {
+    final String jdbcUrl = getRequiredEnv(ENV_JDBC_URL);
+    if (jdbcUrl.startsWith(JDBC_URL_PREFIX)) {
+      return jdbcUrl;
+    }
+    throw new JdbcConfigurationException(
+        ENV_JDBC_URL + " must be a JDBC URL, for example jdbc:sqlite:/path/to/sqlite3.db");
   }
 }
