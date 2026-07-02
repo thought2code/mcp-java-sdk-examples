@@ -7,11 +7,16 @@ Current MCP capabilities:
 
 - Resources: enabled
 - Resource subscriptions and change notifications: enabled by server configuration
-- Tools, prompts, and completions: not enabled yet
+- Tools: enabled
+- Prompts and completions: not enabled yet
 
 Implemented resource:
 
 - `db://schema` (`get_database_schema`) - Returns database product/version, tables, table comments, column names, and approximate row counts as JSON
+
+Implemented tools:
+
+- `show_create_table` - Returns the MySQL `CREATE TABLE` statement for a table in the current database. Required input: `table_name`
 
 Database configuration for the MCP server process:
 

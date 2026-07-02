@@ -9,12 +9,12 @@ capabilities:
   resource: true
   subscribe-resource: true
   prompt: false
-  tool: false
+  tool: true
   completion: false
 change-notification:
   resource: true
   prompt: false
-  tool: false
+  tool: true
 streamable:
   mcp-endpoint: /mcp/message
   disallow-delete: false
