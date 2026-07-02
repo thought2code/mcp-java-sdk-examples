@@ -68,11 +68,7 @@ For Windows paths in JSON/TOML, prefer forward slashes, for example `C:/Users/me
 Start Inspector with the MySQL server as a STDIO server:
 
 ```bash
-npx @modelcontextprotocol/inspector \
-  -e JDBC_URL="<mysql-url>" \
-  -e DB_USERNAME=mcp \
-  -e DB_PASSWORD=mcp \
-  -- java -jar <jar>
+npx @modelcontextprotocol/inspector -e JDBC_URL="<mysql-url>" -e DB_USERNAME=mcp -e DB_PASSWORD=mcp -- java -jar <jar>
 ```
 
 Open the Inspector URL printed in the terminal, then browse the `db://schema` resource.
@@ -104,11 +100,7 @@ Restart Claude Desktop, then browse the `db://schema` resource from the MCP tool
 Add the server with the Codex CLI:
 
 ```bash
-codex mcp add mysql-mcp-server \
-  --env JDBC_URL="<mysql-url>" \
-  --env DB_USERNAME=mcp \
-  --env DB_PASSWORD=mcp \
-  -- java -jar <jar>
+codex mcp add mysql-mcp-server --env JDBC_URL="<mysql-url>" --env DB_USERNAME=mcp --env DB_PASSWORD=mcp -- java -jar <jar>
 ```
 
 Or add it to `~/.codex/config.toml` or a trusted project `.codex/config.toml`:

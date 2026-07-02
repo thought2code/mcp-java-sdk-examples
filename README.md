@@ -1,6 +1,6 @@
 # MCP Java SDK Examples
 
-A collection of MCP examples developed with Java SDKs.
+A collection of MCP server examples developed with Java SDKs.
 
 ## Requirements
 
@@ -13,4 +13,4 @@ The [Model Context Protocol (MCP)](https://modelcontextprotocol.io) lets servers
 
 ## Examples
 
-- [mcp-server-mysql](mcp-server-mysql) - Provides MCP access to MySQL database context
+- [mcp-server-mysql](mcp-server-mysql) - Provides MCP access to MySQL database metadata, operations, and context
