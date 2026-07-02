@@ -80,7 +80,7 @@ Add the server to Claude Desktop MCP settings:
 ```json
 {
   "mcpServers": {
-    "mysql-mcp-server": {
+    "mcp-server-mysql": {
       "command": "java",
       "args": ["-jar", "<jar>"],
       "env": {
@@ -100,17 +100,17 @@ Restart Claude Desktop, then browse the `db://schema` resource from the MCP tool
 Add the server with the Codex CLI:
 
 ```bash
-codex mcp add mysql-mcp-server --env JDBC_URL="<mysql-url>" --env DB_USERNAME=mcp --env DB_PASSWORD=mcp -- java -jar <jar>
+codex mcp add mcp-server-mysql --env JDBC_URL="<mysql-url>" --env DB_USERNAME=mcp --env DB_PASSWORD=mcp -- java -jar <jar>
 ```
 
 Or add it to `~/.codex/config.toml` or a trusted project `.codex/config.toml`:
 
 ```toml
-[mcp_servers.mysql-mcp-server]
+[mcp_servers.mcp-server-mysql]
 command = "java"
 args = ["-jar", "<jar>"]
 
-[mcp_servers.mysql-mcp-server.env]
+[mcp_servers.mcp-server-mysql.env]
 JDBC_URL = "<mysql-url>"
 DB_USERNAME = "mcp"
 DB_PASSWORD = "mcp"
@@ -123,7 +123,7 @@ Add this server in Cursor MCP settings:
 ```json
 {
   "mcpServers": {
-    "mysql-mcp-server": {
+    "mcp-server-mysql": {
       "command": "java",
       "args": ["-jar", "<jar>"],
       "env": {
@@ -143,7 +143,7 @@ Open Cline MCP settings and add:
 ```json
 {
   "mcpServers": {
-    "mysql-mcp-server": {
+    "mcp-server-mysql": {
       "command": "java",
       "args": ["-jar", "<jar>"],
       "env": {
@@ -163,7 +163,7 @@ Create or update `.vscode/mcp.json`:
 ```json
 {
   "servers": {
-    "mysql-mcp-server": {
+    "mcp-server-mysql": {
       "type": "stdio",
       "command": "java",
       "args": ["-jar", "<jar>"],
