@@ -1,0 +1,19 @@
+services:
+  mysql:
+    image: mysql:8.4
+    container_name: mcp-server-mysql
+    environment:
+      MYSQL_USER: mcp
+      MYSQL_PASSWORD: mcp
+      MYSQL_DATABASE: bookstore
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./mcp-server-mysql-common/src/test/resources/init.sql:/docker-entrypoint-initdb.d/001-init.sql:ro
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-umcp", "-pmcp"]
+      interval: 5s
+      timeout: 3s
+      retries: 20
+      start_period: 20s

@@ -1,0 +1,22 @@
+enabled: true
+mode: STREAMABLE
+name: mysql-mcp-server
+version: 1.0.0
+type: SYNC
+instructions: You are a helpful AI assistant that can access a database and perform operations on it
+request-timeout: 20000
+capabilities:
+  resource: true
+  subscribe-resource: true
+  prompt: false
+  tool: false
+  completion: false
+change-notification:
+  resource: true
+  prompt: false
+  tool: false
+streamable:
+  mcp-endpoint: /mcp/message
+  disallow-delete: false
+  keep-alive-interval: 20000
+  port: 8080

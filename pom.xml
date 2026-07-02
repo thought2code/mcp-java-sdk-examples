@@ -9,12 +9,11 @@
     <version>1.0.0</version>
     <packaging>pom</packaging>
 
-    <name>MCP Java SDK Examples</name>
     <description>A collection of MCP examples developed with various Java SDKs</description>
     <url>https://github.com/thought2code/mcp-java-sdk-examples</url>
 
     <modules>
-        <module>mcp-server-jdbc</module>
+        <module>mcp-server-mysql</module>
     </modules>
 
     <properties>

@@ -14,69 +14,70 @@ The [Model Context Protocol (MCP)](https://modelcontextprotocol.io) lets servers
 
 ## Examples
 
-- [JDBC Server](mcp-server-jdbc) - Exposes JDBC database metadata through an MCP resource
+- [mcp-server-mysql](mcp-server-mysql) - Exposes MySQL database metadata through an MCP resource
 
-## JDBC Server
+## mcp-server-mysql
 
-The JDBC example includes an annotated-sdk implementation backed by a JDBC connection.
+The MySQL example includes an annotated-sdk implementation backed by a MySQL JDBC connection.
 The packaged server starts in STDIO mode by default.
 
 Implemented resource:
 
 - `db://schema` - Returns database product/version plus table and column metadata as JSON
 
-JDBC configuration for the MCP server process:
+Database configuration for the MCP server process:
 
-- `JDBC_URL` is required
-- `JDBC_USERNAME` is optional
-- `JDBC_PASSWORD` is optional
+- `JDBC_URL` is optional, must start with `jdbc:mysql:`, and defaults to `jdbc:mysql://localhost:3306/bookstore`
+- `DB_USERNAME` is optional and defaults to `mcp`
+- `DB_PASSWORD` is optional and defaults to `mcp`
 
 Sample database:
 
-- MySQL runs in Docker with initialization data from `mcp-server-jdbc/mcp-server-jdbc-common/src/test/resources/init.sql`
+- MySQL runs in Docker with initialization data from `mcp-server-mysql/mcp-server-mysql-common/src/test/resources/init.sql`
+- The sample schema models a small online bookstore with authors, books, customers, orders, order items, and reviews.
 
 Start the sample MySQL database:
 
 ```bash
-docker compose -f mcp-server-jdbc/docker-compose.yml up -d
+docker compose -f mcp-server-mysql/docker-compose.yml up -d
 ```
 
-The container initializes the `mcp_examples` database on first startup. To recreate the database from `init.sql`, remove the container and start it again:
+The container initializes the `bookstore` database on first startup. To recreate the database from `init.sql`, remove the container and start it again:
 
 ```bash
-docker compose -f mcp-server-jdbc/docker-compose.yml down -v
-docker compose -f mcp-server-jdbc/docker-compose.yml up -d
+docker compose -f mcp-server-mysql/docker-compose.yml down -v
+docker compose -f mcp-server-mysql/docker-compose.yml up -d
 ```
 
 Build the MCP server jar first:
 
 ```bash
-./mvnw -pl mcp-server-jdbc/mcp-server-jdbc-annotated-sdk -am package
+./mvnw -pl mcp-server-mysql/mcp-server-mysql-annotated-java-sdk -am package
 ```
 
 On Windows PowerShell, use `.\mvnw.cmd` instead of `./mvnw`.
 
 The jar is created at:
 
-- `mcp-server-jdbc/mcp-server-jdbc-annotated-sdk/target/mcp-server-jdbc-annotated-sdk.jar`
+- `mcp-server-mysql/mcp-server-mysql-annotated-java-sdk/target/mcp-server-mysql-annotated-java-sdk.jar`
 
 Use these paths in the examples below:
 
 - `<repo>` - absolute path to this repository
-- `<jar>` - `<repo>/mcp-server-jdbc/mcp-server-jdbc-annotated-sdk/target/mcp-server-jdbc-annotated-sdk.jar`
-- `<mysql-url>` - `jdbc:mysql://127.0.0.1:3306/mcp_examples?allowPublicKeyRetrieval=true&useSSL=false&nullCatalogMeansCurrent=true`
+- `<jar>` - `<repo>/mcp-server-mysql/mcp-server-mysql-annotated-java-sdk/target/mcp-server-mysql-annotated-java-sdk.jar`
+- `<mysql-url>` - `jdbc:mysql://127.0.0.1:3306/bookstore?allowPublicKeyRetrieval=true&useSSL=false&nullCatalogMeansCurrent=true`
 
 For Windows paths in JSON/TOML, prefer forward slashes, for example `C:/Users/me/code/mcp-java-sdk-examples/...`.
 
 ### MCP Inspector
 
-Start Inspector with the JDBC server as a STDIO server:
+Start Inspector with the MySQL server as a STDIO server:
 
 ```bash
 npx @modelcontextprotocol/inspector \
   -e JDBC_URL="<mysql-url>" \
-  -e JDBC_USERNAME=mcp \
-  -e JDBC_PASSWORD=mcp \
+  -e DB_USERNAME=mcp \
+  -e DB_PASSWORD=mcp \
   -- java -jar <jar>
 ```
 
@@ -89,13 +90,13 @@ Add the server to Claude Desktop MCP settings:
 ```json
 {
   "mcpServers": {
-    "jdbc-mcp-server": {
+    "mysql-mcp-server": {
       "command": "java",
       "args": ["-jar", "<jar>"],
       "env": {
         "JDBC_URL": "<mysql-url>",
-        "JDBC_USERNAME": "mcp",
-        "JDBC_PASSWORD": "mcp"
+        "DB_USERNAME": "mcp",
+        "DB_PASSWORD": "mcp"
       }
     }
   }
@@ -109,24 +110,24 @@ Restart Claude Desktop, then browse the `db://schema` resource from the MCP tool
 Add the server with the Codex CLI:
 
 ```bash
-codex mcp add jdbc-mcp-server \
+codex mcp add mysql-mcp-server \
   --env JDBC_URL="<mysql-url>" \
-  --env JDBC_USERNAME=mcp \
-  --env JDBC_PASSWORD=mcp \
+  --env DB_USERNAME=mcp \
+  --env DB_PASSWORD=mcp \
   -- java -jar <jar>
 ```
 
 Or add it to `~/.codex/config.toml` or a trusted project `.codex/config.toml`:
 
 ```toml
-[mcp_servers.jdbc-mcp-server]
+[mcp_servers.mysql-mcp-server]
 command = "java"
 args = ["-jar", "<jar>"]
 
-[mcp_servers.jdbc-mcp-server.env]
+[mcp_servers.mysql-mcp-server.env]
 JDBC_URL = "<mysql-url>"
-JDBC_USERNAME = "mcp"
-JDBC_PASSWORD = "mcp"
+DB_USERNAME = "mcp"
+DB_PASSWORD = "mcp"
 ```
 
 ### Cursor
@@ -136,13 +137,13 @@ Add this server in Cursor MCP settings:
 ```json
 {
   "mcpServers": {
-    "jdbc-mcp-server": {
+    "mysql-mcp-server": {
       "command": "java",
       "args": ["-jar", "<jar>"],
       "env": {
         "JDBC_URL": "<mysql-url>",
-        "JDBC_USERNAME": "mcp",
-        "JDBC_PASSWORD": "mcp"
+        "DB_USERNAME": "mcp",
+        "DB_PASSWORD": "mcp"
       }
     }
   }
@@ -156,13 +157,13 @@ Open Cline MCP settings and add:
 ```json
 {
   "mcpServers": {
-    "jdbc-mcp-server": {
+    "mysql-mcp-server": {
       "command": "java",
       "args": ["-jar", "<jar>"],
       "env": {
         "JDBC_URL": "<mysql-url>",
-        "JDBC_USERNAME": "mcp",
-        "JDBC_PASSWORD": "mcp"
+        "DB_USERNAME": "mcp",
+        "DB_PASSWORD": "mcp"
       }
     }
   }
@@ -176,14 +177,14 @@ Create or update `.vscode/mcp.json`:
 ```json
 {
   "servers": {
-    "jdbc-mcp-server": {
+    "mysql-mcp-server": {
       "type": "stdio",
       "command": "java",
       "args": ["-jar", "<jar>"],
       "env": {
         "JDBC_URL": "<mysql-url>",
-        "JDBC_USERNAME": "mcp",
-        "JDBC_PASSWORD": "mcp"
+        "DB_USERNAME": "mcp",
+        "DB_PASSWORD": "mcp"
       }
     }
   }
@@ -195,7 +196,7 @@ For databases that require credentials, add them to the MCP server environment:
 ```json
 "env": {
   "JDBC_URL": "<mysql-url>",
-  "JDBC_USERNAME": "mcp",
-  "JDBC_PASSWORD": "mcp"
+  "DB_USERNAME": "mcp",
+  "DB_PASSWORD": "mcp"
 }
 ```
