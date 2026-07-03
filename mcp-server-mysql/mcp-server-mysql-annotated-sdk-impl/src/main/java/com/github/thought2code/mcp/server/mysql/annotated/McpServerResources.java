@@ -15,6 +15,7 @@ public class McpServerResources {
   @McpResource(
       uri = "db://schema",
       name = "get_database_schema",
+      title = "Get Database Schema",
       description = "Get database schema metadata",
       mimeType = MimeType.APPLICATION_JSON)
   public DatabaseSchema getDatabaseSchema() {
