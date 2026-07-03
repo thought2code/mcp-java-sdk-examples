@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "properties": {
+    "table_name": {
+      "type": "string",
+      "description": "Table name in the current database"
+    }
+  },
+  "required": [
+    "table_name"
+  ],
+  "additionalProperties": false
+}

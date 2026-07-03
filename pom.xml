@@ -33,6 +33,7 @@
         <logback.version>1.5.37</logback.version>
         <lombok.version>1.18.46</lombok.version>
         <mcp-annotated-java-sdk.version>0.20.0</mcp-annotated-java-sdk.version>
+        <mcp-official-java-sdk.version>2.0.0</mcp-official-java-sdk.version>
         <mysql-connector-j.version>9.7.0</mysql-connector-j.version>
     </properties>
 
@@ -52,6 +53,13 @@
                 <groupId>io.github.thought2code</groupId>
                 <artifactId>mcp-annotated-java-sdk</artifactId>
                 <version>${mcp-annotated-java-sdk.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.modelcontextprotocol.sdk</groupId>
+                <artifactId>mcp-bom</artifactId>
+                <version>${mcp-official-java-sdk.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
             <dependency>
                 <groupId>org.projectlombok</groupId>
