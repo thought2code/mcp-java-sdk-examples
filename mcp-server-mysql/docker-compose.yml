@@ -10,7 +10,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./mcp-server-mysql-common/src/test/resources/init.sql:/docker-entrypoint-initdb.d/001-init.sql:ro
+      - ./mcp-server-mysql-support/src/test/resources/init.sql:/docker-entrypoint-initdb.d/001-init.sql:ro
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-umcp", "-pmcp"]
       interval: 5s

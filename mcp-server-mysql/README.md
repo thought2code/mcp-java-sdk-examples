@@ -26,7 +26,7 @@ Database configuration for the MCP server process:
 
 Sample database:
 
-- MySQL runs in Docker with initialization data from `mcp-server-mysql-common/src/test/resources/init.sql`
+- MySQL runs in Docker with initialization data from `mcp-server-mysql-support/src/test/resources/init.sql`
 - The sample schema models a small online bookstore with authors, books, customers, orders, order items, and reviews.
 
 ## Run The Sample Database
@@ -49,19 +49,19 @@ docker compose up -d
 Build the MCP server jar from this directory:
 
 ```bash
-../mvnw -pl mcp-server-mysql-annotated-java-sdk -am package
+../mvnw -pl mcp-server-mysql-annotated-sdk-impl -am package
 ```
 
 On Windows PowerShell, use `..\mvnw.cmd` instead of `../mvnw`.
 
 The jar is created at:
 
-- `mcp-server-mysql-annotated-java-sdk/target/mcp-server-mysql-annotated-java-sdk.jar`
+- `mcp-server-mysql-annotated-sdk-impl/target/mcp-server-mysql-annotated-sdk-impl.jar`
 
 Use these paths in the examples below:
 
 - `<module>` - absolute path to this `mcp-server-mysql` directory
-- `<jar>` - `<module>/mcp-server-mysql-annotated-java-sdk/target/mcp-server-mysql-annotated-java-sdk.jar`
+- `<jar>` - `<module>/mcp-server-mysql-annotated-sdk-impl/target/mcp-server-mysql-annotated-sdk-impl.jar`
 - `<mysql-url>` - `jdbc:mysql://127.0.0.1:3306/bookstore?allowPublicKeyRetrieval=true&useSSL=false&nullCatalogMeansCurrent=true`
 
 For Windows paths in JSON/TOML, prefer forward slashes, for example `C:/Users/me/code/mcp-java-sdk-examples/mcp-server-mysql/...`.

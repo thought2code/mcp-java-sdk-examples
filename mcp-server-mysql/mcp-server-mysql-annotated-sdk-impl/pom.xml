@@ -10,7 +10,7 @@
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>mcp-server-mysql-annotated-java-sdk</artifactId>
+    <artifactId>mcp-server-mysql-annotated-sdk-impl</artifactId>
     <description>A MySQL MCP server implementation built with the annotated MCP Java SDK</description>
 
     <dependencies>
@@ -24,7 +24,7 @@
         </dependency>
         <dependency>
             <groupId>io.github.thought2code</groupId>
-            <artifactId>mcp-server-mysql-common</artifactId>
+            <artifactId>mcp-server-mysql-support</artifactId>
         </dependency>
     </dependencies>
 

@@ -10,7 +10,7 @@
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>mcp-server-mysql-common</artifactId>
+    <artifactId>mcp-server-mysql-support</artifactId>
     <description>Shared MySQL JDBC utilities for MCP server implementations</description>
 
     <dependencies>
