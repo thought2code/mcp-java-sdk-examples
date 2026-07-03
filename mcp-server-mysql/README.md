@@ -1,7 +1,14 @@
 # mcp-server-mysql
 
-This example provides MCP access to MySQL database context through an annotated Java SDK server backed by JDBC.
+This example provides MCP access to MySQL database context through Java SDK servers backed by JDBC.
 The packaged server starts in STDIO mode by default.
+
+Available implementations:
+
+- `mcp-server-mysql-annotated-sdk-impl` - Built with the annotated MCP Java SDK
+- `mcp-server-mysql-official-sdk-impl` - Built with the official MCP Java SDK
+
+Both implementations expose the same MCP resources and tools.
 
 Current MCP capabilities:
 
@@ -46,22 +53,31 @@ docker compose up -d
 
 ## Build
 
-Build the MCP server jar from this directory:
+Build the annotated SDK MCP server jar from this directory:
 
 ```bash
 ../mvnw -pl mcp-server-mysql-annotated-sdk-impl -am package
 ```
 
+Build the official SDK MCP server jar from this directory:
+
+```bash
+../mvnw -pl mcp-server-mysql-official-sdk-impl -am package
+```
+
 On Windows PowerShell, use `..\mvnw.cmd` instead of `../mvnw`.
 
-The jar is created at:
+The jars are created at:
 
 - `mcp-server-mysql-annotated-sdk-impl/target/mcp-server-mysql-annotated-sdk-impl.jar`
+- `mcp-server-mysql-official-sdk-impl/target/mcp-server-mysql-official-sdk-impl.jar`
 
 Use these paths in the examples below:
 
 - `<module>` - absolute path to this `mcp-server-mysql` directory
-- `<jar>` - `<module>/mcp-server-mysql-annotated-sdk-impl/target/mcp-server-mysql-annotated-sdk-impl.jar`
+- `<jar>` - absolute path to either implementation jar, for example:
+  - `<module>/mcp-server-mysql-annotated-sdk-impl/target/mcp-server-mysql-annotated-sdk-impl.jar`
+  - `<module>/mcp-server-mysql-official-sdk-impl/target/mcp-server-mysql-official-sdk-impl.jar`
 - `<mysql-url>` - `jdbc:mysql://127.0.0.1:3306/bookstore?allowPublicKeyRetrieval=true&useSSL=false&nullCatalogMeansCurrent=true`
 
 For Windows paths in JSON/TOML, prefer forward slashes, for example `C:/Users/me/code/mcp-java-sdk-examples/mcp-server-mysql/...`.
