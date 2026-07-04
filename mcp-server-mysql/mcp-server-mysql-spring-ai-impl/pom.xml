@@ -13,4 +13,48 @@
     <artifactId>mcp-server-mysql-spring-ai-impl</artifactId>
     <description>A MySQL MCP server implementation built with the Spring AI framework</description>
 
+    <properties>
+        <jackson-annotations.version>2.21</jackson-annotations.version>
+        <spring-boot.version>4.1.0</spring-boot.version>
+    </properties>
+
+    <dependencies>
+        <!-- Required by Spring AI's Jackson 3 JsonMapper at runtime for JsonSerializeAs. -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson-annotations.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>io.github.thought2code</groupId>
+            <artifactId>mcp-server-mysql-support</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.ai</groupId>
+            <artifactId>spring-ai-starter-mcp-server</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>${spring-boot.version}</version>
+                <configuration>
+                    <mainClass>com.github.thought2code.mcp.server.mysql.springai.McpStdioServer</mainClass>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>repackage-fat-jar</id>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                        <phase>package</phase>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>

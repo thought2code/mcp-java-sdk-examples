@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: mcp-server-mysql
+  main:
+    banner-mode: off
+    web-application-type: none
+  ai:
+    mcp:
+      server:
+        annotation-scanner:
+          enabled: true
+        name: mcp-server-mysql
+        version: 1.0.0
+        instructions: You are a helpful AI assistant that can access a database and perform operations on it
+        stdio: true
+        type: sync
+        capabilities:
+          resource: true
+          tool: true
+          prompt: false
+          completion: false
