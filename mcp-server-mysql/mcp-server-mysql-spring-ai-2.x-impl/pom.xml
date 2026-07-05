@@ -10,7 +10,7 @@
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>mcp-server-mysql-spring-ai-impl</artifactId>
+    <artifactId>mcp-server-mysql-spring-ai-2.x-impl</artifactId>
     <description>A MySQL MCP server implementation built with the Spring AI framework</description>
 
     <properties>

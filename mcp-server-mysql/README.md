@@ -7,8 +7,9 @@ Available implementations:
 
 - `mcp-server-mysql-annotated-sdk-impl` - Built with the annotated MCP Java SDK
 - `mcp-server-mysql-official-sdk-impl` - Built with the official MCP Java SDK
+- `mcp-server-mysql-spring-ai-2.x-impl` - Built with Spring AI 2.x
 
-Both implementations expose the same MCP resources and tools.
+All implementations expose the same MCP resources and tools.
 
 Current MCP capabilities:
 
@@ -65,19 +66,27 @@ Build the official SDK MCP server jar from this directory:
 ../mvnw -pl mcp-server-mysql-official-sdk-impl -am package
 ```
 
+Build the Spring AI 2.x MCP server jar from this directory:
+
+```bash
+../mvnw -pl mcp-server-mysql-spring-ai-2.x-impl -am package
+```
+
 On Windows PowerShell, use `..\mvnw.cmd` instead of `../mvnw`.
 
 The jars are created at:
 
 - `mcp-server-mysql-annotated-sdk-impl/target/mcp-server-mysql-annotated-sdk-impl.jar`
 - `mcp-server-mysql-official-sdk-impl/target/mcp-server-mysql-official-sdk-impl.jar`
+- `mcp-server-mysql-spring-ai-2.x-impl/target/mcp-server-mysql-spring-ai-2.x-impl.jar`
 
 Use these paths in the examples below:
 
 - `<module>` - absolute path to this `mcp-server-mysql` directory
-- `<jar>` - absolute path to either implementation jar, for example:
+- `<jar>` - absolute path to any implementation jar, for example:
   - `<module>/mcp-server-mysql-annotated-sdk-impl/target/mcp-server-mysql-annotated-sdk-impl.jar`
   - `<module>/mcp-server-mysql-official-sdk-impl/target/mcp-server-mysql-official-sdk-impl.jar`
+  - `<module>/mcp-server-mysql-spring-ai-2.x-impl/target/mcp-server-mysql-spring-ai-2.x-impl.jar`
 - `<mysql-url>` - `jdbc:mysql://127.0.0.1:3306/bookstore?allowPublicKeyRetrieval=true&useSSL=false&nullCatalogMeansCurrent=true`
 
 For Windows paths in JSON/TOML, prefer forward slashes, for example `C:/Users/me/code/mcp-java-sdk-examples/mcp-server-mysql/...`.

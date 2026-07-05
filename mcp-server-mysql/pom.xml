@@ -16,7 +16,7 @@
     <modules>
         <module>mcp-server-mysql-annotated-sdk-impl</module>
         <module>mcp-server-mysql-official-sdk-impl</module>
-        <module>mcp-server-mysql-spring-ai-impl</module>
+        <module>mcp-server-mysql-spring-ai-2.x-impl</module>
         <module>mcp-server-mysql-support</module>
     </modules>
 
