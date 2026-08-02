@@ -26,15 +26,15 @@
         <maven-enforcer-plugin.version>3.6.3</maven-enforcer-plugin.version>
         <maven-shade-plugin.version>3.6.2</maven-shade-plugin.version>
         <sortpom-maven-plugin.version>4.0.0</sortpom-maven-plugin.version>
-        <spotbugs-maven-plugin.version>4.10.2.0</spotbugs-maven-plugin.version>
-        <spotless-maven-plugin.version>3.6.0</spotless-maven-plugin.version>
+        <spotbugs-maven-plugin.version>4.10.3.0</spotbugs-maven-plugin.version>
+        <spotless-maven-plugin.version>3.9.0</spotless-maven-plugin.version>
         <versions-maven-plugin.version>2.21.0</versions-maven-plugin.version>
         <!--==================== dependency versions ======================-->
-        <logback.version>1.5.37</logback.version>
+        <logback.version>1.6.1</logback.version>
         <lombok.version>1.18.46</lombok.version>
         <mcp-annotated-java-sdk.version>0.20.0</mcp-annotated-java-sdk.version>
         <mcp-official-java-sdk.version>2.0.0</mcp-official-java-sdk.version>
-        <mysql-connector-j.version>9.7.0</mysql-connector-j.version>
+        <mysql-connector-j.version>26.7.0</mysql-connector-j.version>
         <spring-ai.version>2.0.0</spring-ai.version>
     </properties>
 
