@@ -14,7 +14,7 @@
     <description>A MySQL MCP server implementation built with the Spring AI framework</description>
 
     <properties>
-        <jackson-annotations.version>2.21</jackson-annotations.version>
+        <jackson-annotations.version>2.22</jackson-annotations.version>
         <spring-boot.version>4.1.0</spring-boot.version>
     </properties>
 
