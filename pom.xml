@@ -28,7 +28,6 @@
         <sortpom-maven-plugin.version>4.0.0</sortpom-maven-plugin.version>
         <spotbugs-maven-plugin.version>4.10.3.0</spotbugs-maven-plugin.version>
         <spotless-maven-plugin.version>3.9.0</spotless-maven-plugin.version>
-        <versions-maven-plugin.version>2.21.0</versions-maven-plugin.version>
         <!--==================== dependency versions ======================-->
         <logback.version>1.6.1</logback.version>
         <lombok.version>1.18.46</lombok.version>
@@ -156,31 +155,6 @@
                         <id>enforce-versions</id>
                         <goals>
                             <goal>enforce</goal>
-                        </goals>
-                        <phase>validate</phase>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>versions-maven-plugin</artifactId>
-                <version>${versions-maven-plugin.version}</version>
-                <configuration>
-                    <allowSnapshots>false</allowSnapshots>
-                    <allowMinorUpdates>true</allowMinorUpdates>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>display-dependency-updates</id>
-                        <goals>
-                            <goal>display-dependency-updates</goal>
-                        </goals>
-                        <phase>validate</phase>
-                    </execution>
-                    <execution>
-                        <id>display-plugin-updates</id>
-                        <goals>
-                            <goal>display-plugin-updates</goal>
                         </goals>
                         <phase>validate</phase>
                     </execution>
