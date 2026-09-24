@@ -30,7 +30,7 @@
         <spotless-maven-plugin.version>3.10.2</spotless-maven-plugin.version>
         <!--==================== dependency versions ======================-->
         <logback.version>1.6.3</logback.version>
-        <lombok.version>1.18.46</lombok.version>
+        <lombok.version>1.18.48</lombok.version>
         <mcp-annotated-java-sdk.version>0.21.0</mcp-annotated-java-sdk.version>
         <mcp-official-java-sdk.version>2.0.1</mcp-official-java-sdk.version>
         <mysql-connector-j.version>26.7.0</mysql-connector-j.version>
