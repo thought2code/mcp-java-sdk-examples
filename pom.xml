@@ -29,7 +29,7 @@
         <spotbugs-maven-plugin.version>4.10.5.0</spotbugs-maven-plugin.version>
         <spotless-maven-plugin.version>3.10.4</spotless-maven-plugin.version>
         <!--==================== dependency versions ======================-->
-        <logback.version>1.6.5</logback.version>
+        <logback.version>1.6.6</logback.version>
         <lombok.version>1.18.48</lombok.version>
         <mcp-annotated-java-sdk.version>0.21.0</mcp-annotated-java-sdk.version>
         <mcp-official-java-sdk.version>2.1.0</mcp-official-java-sdk.version>
